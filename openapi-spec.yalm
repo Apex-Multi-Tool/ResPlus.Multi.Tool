@@ -1,6 +1,15 @@
-ResPlus Dunder - Backend API-specifikation
 
-API-endpoints för resplus multi tool api.
+# ResPlus Dunder - Backend API-specifikation ( Swagger ) #
+
+Author:
+Api / App Made by Amst4ff & the Multi Tool Gang.
+Contact @ resplus-multitool@gmail.com
+Or the MCP server gang @ apexmultitool@gmail.com
+
+
+OPENAPI Swagger APi Specs:
+
+API-endpoints and usage.
 Bas-URL: http://resplus.plus.se:3000/api
 Autentisering
 all protected routes must include Authorization-header with a valid JWT-token:
@@ -8,7 +17,7 @@ Authorization: Bearer <DITT_TOKEN>
 
 1. Autentisering
 POST /api/auth/login
-Loggar in en användare.
+Login for users
 * Autentisering: Ingen
 * Request Body (JSON):
 {
@@ -31,8 +40,8 @@ Loggar in en användare.
  "message": "Invalid credentials"
 }
 
-2. Rese-API:er (Proxy)
-This routes is proxy to Trafiklabs API:er och need auth.
+2. Travel API:er (Proxy)
+This routes is proxy to Trafiklabs API:er and need auth.
 GET /api/proxy/location
 Fetch suggesten for Stops/Stations (autocomplete).
       * Autentisering: Bearer Token

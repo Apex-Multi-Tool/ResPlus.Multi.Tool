@@ -1,169 +1,102 @@
-ResPlus Multi Tool
+```markdown
+# ResPlus.Multi.Tool
 
-ResPlus.Multi.Tool.V0.0.7-Alpha
+> The best travel app in Sweden!
 
+ResPlus.Multi.Tool is a modern travel application focused on giving users fast, reliable planning and bookings for travel within Sweden. This repository contains the web client and related tooling (JavaScript + TypeScript).
 
-===============================================
+Status
+- Languages: JavaScript (≈62%), TypeScript (≈38%)
+- Repo ID: 1084780088
 
-This app will be a travel search / ticket booking web app for all public transportation in Sweden!
-All with realtime gps integrated in App with Google Maps so you can track every aspect of your trip including Vehicle positions,Tripadvisor,Route Planner,Webhocked real time updates for instant information about
-Delays,Station/Operators updates,Track number,Warnings and mutch more! 
-Get your information in app or instant updates to your mail or Push Notifications on any device, all your choice.
+Badges
+[Add CI / build / npm / license badges here once CI and package publishing are set up]
 
-How is it built and what makes it tick? 
-# Backend/  -> Node.js + Express proxy to Trafiklabs APi for travel data & Trafikverkets Travel and stations updates
-Backend fetches all travel data in Sweden of the supported Operators by Python Modules and GTFS Files from the Swedish Trafikverket AB and TrafikLabs wonderfull APi.
-We mirror host all travel data files on our SelfHosted servers that later gets the api calls from the user.
-So the user never use any data directly from Trafikverket or any Operator.
+Table of contents
+- Features
+- Quick start
+- Development
+- Scripts
+- Project structure
+- Contributing
+- License
+- Contact
 
-Travel data includes all public transport in sweden including Busses,Trains,Tunnelbanan and even Ferrys!
-Our goal is to collect and display as mutch realtime info as possible to the user.
-Simply put ResPlus MultiTool does what no other Trip App in sweden does and uses all avalible sources to collects all information there is to find about your trip and gives you more Travel data then any other App and pressent all information in a beautiful and user friendly way.
+Features
+- Route planning and travel suggestions across Sweden
+- Clean, responsive UI built with modern web technologies
+- Extensible plugin-style architecture for travel providers (planned)
 
-SUPPORTED OPERATORS : (And what data they share)
+Quick start (developer)
+1. Clone the repo
+   git clone https://github.com/Apex-Multi-Tool/ResPlus.Multi.Tool.git
+2. Checkout the default branch and create a feature branch
+   git checkout -b feat/your-feature
+3. Install dependencies
+   npm ci
+4. Start the dev server
+   npm run dev
+5. Build for production
+   npm run build
+6. Run tests
+   npm test
 
-Operator	Abbreviation	Static data	Real-time data	Vehicle positions	Occupancy data       Tickets
-SL	            sl	            ✔️	             ✔️	       ✔️	                                ✔️
-UL	ul	✔️	✔️	✔️	
-Sörmlandstrafiken	sormland	✔️			
-Östgötatrafiken	otraf	✔️	✔️	✔️	✔️
-JLT	jlt	✔️	✔️	✔️	
-Kronoberg	krono	✔️	✔️	✔️	
-KLT	klt	✔️	✔️	✔️	
-Gotland	gotland	✔️	✔️	✔️	
-Blekingetrafiken	blekinge	✔️			
-Skånetrafiken	skane	✔️	✔️	✔️	✔️
-Hallandstrafiken	halland	✔️			
-Västtrafik	vt	✔️			
-Värmlandstrafik	varm	✔️	✔️	✔️	
-Örebro	orebro	✔️	✔️	✔️	
-Västmanland	vastmanland	✔️	✔️	✔️	
-Dalatrafik	dt	✔️	✔️	✔️	
-X-trafik	xt	✔️	✔️	✔️	
-Din Tur - Västernorrland	dintur	✔️	✔️	✔️	
-Jämtland	jamtland	✔️			
-Västerbotten	vasterbotten	✔️			
-Norrbotten	norrbotten	✔️			
-BT buss	btbuss	✔️			
-Destination Gotland	dg	✔️			
-Falcks Omnibus AB	falcks	✔️			
-Flixbus	flixbus	✔️			
-Härjedalingen	harje	✔️			
-Lennakatten	lenna	✔️			
-Luleå Lokaltrafik	lulea	✔️			
-Masexpressen	masen	✔️			
-Mälartåg	malartag	✔️			
-Norrtåg	vy-norrtag	✔️			
-Ressel Rederi	ressel	✔️			
-Roslagens sjötrafik	roslagen	✔️			
-SJ	sj	✔️			
-SJ Norge	sjnorge	✔️			
-Sjöstadstrafiken (Stockholm Stad)	sjostadstrafiken	✔️			
-Skellefteåbuss	skelleftea	✔️			
-Snälltåget	snalltaget	✔️			
-Strömma Turism & Sjöfart AB	stromma	✔️			
-TiB ersättningstrafik (VR Sverige)	tib-vr-sverige	✔️			
-TJF Smalspåret	tjf	✔️			
-Trosabussen	trosa	✔️			
-Tågab	tagab	✔️			
-VR	vr	✔️			
-Vy Norge	vy-norge	✔️			
-Vy Tåg AB	vy-varmlandnorge	✔️			
-Vy Värmlandstrafik	vy-varmlandstrafik	✔️			
-Y-Buss	ybuss	✔️		
+Recommended global tools (optional)
+- Node.js 18+ (recommended)
+- npm 9+ (or yarn/pnpm)
+- Optional: nvm for managing Node versions
 
+Development guidelines
+- Keep code formatted with Prettier and validated with ESLint.
+- Prefer adding TypeScript types for new modules; move new code to TS where practical.
+- Branch naming: feat/<short-desc>, fix/<short-desc>, chore/<short-desc>.
+- Open PRs against the main (default) branch with clear descriptions and linked issues.
 
-*As of Version 0.0.6 Ticket booking is supported for all swedish Operators.
-GPS is beeing added to all operators next major update.
+Common scripts
+- npm run dev — start dev server (hot reload)
+- npm run build — build production bundles
+- npm test — run unit tests
+- npm run lint — run ESLint
+- npm run format — run Prettier
+- npm run typecheck — run TypeScript checks (if configured)
 
+Project structure (example)
+- src/ — application source
+  - components/ — shared UI components
+  - pages/ — route pages
+  - services/ — network/API/business logic
+  - styles/ — global CSS / theme
+- public/ — static assets
+- scripts/ — build or release scripts
+- tests/ — unit & integration tests
+- .github/ — workflows and issue/PR templates
 
-*********************************** Other Features **************************************************************** 
+How to contribute
+1. Fork the repo (or create branches directly if you have access).
+2. Create a branch: git checkout -b feat/your-feature
+3. Run tests and lint locally.
+4. Open a PR with a clear description and link any relevant issue.
+5. Follow code style and commit message guidelines.
 
-# JWT-auth and on device postgrendb userdatabase (.env) for maximum privacy.
-Users are added to .inv files and pushed to the server ones a day to avoid using a online sql database. 
+PR checklist
+- [ ] Code builds locally
+- [ ] Tests added/updated and passing
+- [ ] Linting/formatting applied
+- [ ] Documentation updated where applicable
 
-# Ticket booking function that generates a 100% Identical ticket as the operators. A Ticket clone with valid ticket id from the Operator and qr code that can be scanned!!
-(OBS OBS I do not condone nor encurage anyone breaking the law! Do not use this ticket to validate to the Operator! 
-You will be committing fraud and SJ might crash all togheter so ... yeah.
-This function will be re-worked to a subscription based ticket system before launch.
-But for now it stays, enjoy a smooth testing experiance. 
+Styling & commits
+- Use Prettier for formatting.
+- ESLint for linting.
+- Commit message style: type(scope): short description (e.g., feat(api): add travel suggestions endpoint)
 
-# PDF Bundler that makes a .pdf ticket and then use a node auto mail function sending the ticket to the user specified email (Like the Operator would do when booking on there site)
-# Ticket gets delivred to the users mail by " ticket@resplus.plus.se "
+Upgrading JS -> TS (recommendation)
+- Convert one module at a time.
+- Add tsconfig.json with strict-ish settings and incrementally enable more strict options.
+- Keep JS and TS interoperable using "allowJs" if needed during migration.
 
- ** Register a Alpha account for a 14day trial today!
-    this is only our first Alpha version so only 14 days per user right now
-    do not ask for more we will let you know when BETA is live **
- 
-#######################################################
-             Change log / What to add next 
-#######################################################
+License
+- Add LICENSE (suggest MIT) — I can add it if you confirm the license choice.
 
-
-# - backend/  -
-
-* More Real-time data inc Vehicle position gps and Occupancy data.
-* More options and support to save favorites and routes to be able to fast book regular trips.
-* Add Push Notifications and RSS feed for updates on your station & Notification on updates to close by stations (within 3km)
-* Ticket price of source Operator displayed in search results.
-
-
-* More gnix load balancers ( test 2500 more users )
-
-# - frontend
-
-* Add more pictures ala travel style 
-* Create better logo / Banners / Buttons 
-* Improve search results page 
-* Google maps window with Vehicle positions of close by Vehicles
-* Add a Taxi/Uber Booking function that can be used from google maps
-* Speed of gps and weather rapport for station on search and Notifications
-* Auto fill forms 
-
-
-* Relay all static GTFS data to our proxy server every 24h and fetch our own updates on api calls.
-  ( Coding done just need to do some size and speed research & Tests on this before switch ) 
-
-* Port to and push executables for all major OS.
-  ( APK for android already done & Amst4ff are working on iOS. )
-  
- * Push the Docker Version  
-
-
-
-#########################################################################
-                            Suggestens
-                            Messages 
-        @@@@@@@@@@@@@@ Contact and Thanks @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#########################################################################
-
-# Use netex to add more Länstrafik data of all operators, might decrease latancy on gps data
-
-
-Request account or give us feedback
-Contact us @ resplus@multitool.se
-
-If you want access to the rest of the multi tool collection contact @
-apexmultitool@multitool.se and tell us about your self.
-Adding users to our MCP MultiTool server for testing,
-all the AI hacking tools you will ever need and a privacy first uncensored forum for all registerd users.
-
-
-Tools Included so far ...
-
-Matkollen.MultiTool.V1.0.0-BETA
-
-Multi.Gambling.bot.twitch
-
-Fake.Swish.MultiTool.V2.0.1-Android
-
-NFC.Relay.MultiTool.V1.0.3
-
-Freja.ID.mULTItOOL.v0.0.2-Alpha
-
-
-Updating weekly so stay tuned for updates in the Tool Forum!
-If you want to help out on any of our projects plz tell us and lets vibe code! 
-
-
-
+Contact
+Open issues for questions, or tag maintainers in PRs for review.
+```

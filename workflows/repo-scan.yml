@@ -1,0 +1,24 @@
+name: Repo Scan (manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Run ESLint
+        run: npm run lint --if-present || true
+      - name: Run Depcheck
+        run: npx depcheck || true
+      - name: Run npm audit (summary)
+        run: |
+          npm audit --json > audit.json || true
+          cat audit.json | jq '.metadata' || true
+      - name: List top files
+        run: |
+          echo "Top-level files:"
+          ls -la

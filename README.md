@@ -18,7 +18,7 @@ So the user never use any data directly from Trafikverket or any Operator.
 
 Travel data includes all public transport in sweden including Busses,Trains,Tunnelbanan and even Ferrys!
 Our goal is to collect and display as mutch realtime info as possible to the user.
-Simply put ResPlus MultiTool collects all information there is to find about your trip and gives you more Travel data then any other App or Operator and pressent this findings in a butifull and user friendly way. 
+Simply put ResPlus MultiTool does what no other Trip App in sweden does and uses all avalible sources to collects all information there is to find about your trip and gives you more Travel data then any other App and pressent all information in a beautiful and user friendly way.
 
 SUPPORTED OPERATORS : (And what data they share)
 
@@ -76,16 +76,19 @@ Y-Buss	ybuss	✔️
 *As of Version 0.0.6 Ticket booking is supported for all swedish Operators.
 GPS is beeing added to all operators next major update.
 
+
 *********************************** Other Features **************************************************************** 
 
 # JWT-auth and on device postgrendb userdatabase (.env) for maximum privacy.
 Users are added to .inv files and pushed to the server ones a day to avoid using a online sql database. 
 
 # Ticket booking function that generates a 100% Identical ticket as the operators. A Ticket clone with valid ticket id from the Operator and qr code that can be scanned!!
-(OBS OBS I do not condone nor encurage anyone breaking the law! Do not use this ticket to validate to the Operator! You will be committing fraud and SJ might crash all togheter so ... yeah. This function will be re-worked to a subscription based ticket system before launch.
+(OBS OBS I do not condone nor encurage anyone breaking the law! Do not use this ticket to validate to the Operator! 
+You will be committing fraud and SJ might crash all togheter so ... yeah.
+This function will be re-worked to a subscription based ticket system before launch.
 But for now it stays, enjoy a smooth testing experiance. 
 
-# PDF Bundler that makes a .pdf ticket and then use a node auto mail function sending the ticket to the user specified email (Like the Operator would do on booking on there site)
+# PDF Bundler that makes a .pdf ticket and then use a node auto mail function sending the ticket to the user specified email (Like the Operator would do when booking on there site)
 # Ticket gets delivred to the users mail by " ticket@resplus.plus.se "
 
  ** Register a Alpha account for a 14day trial today!
@@ -113,11 +116,12 @@ But for now it stays, enjoy a smooth testing experiance.
 * Create better logo / Banners / Buttons 
 * Improve search results page 
 * Google maps window with Vehicle positions of close by Vehicles
+* Add a Taxi/Uber Booking function that can be used from google maps
 * Speed of gps and weather rapport for station on search and Notifications
 * Auto fill forms 
 
 
-* Relay all GTFS data to our proxy server every 24h and fetch our own updates on api calls.
+* Relay all static GTFS data to our proxy server every 24h and fetch our own updates on api calls.
   ( Coding done just need to do some size and speed research & Tests on this before switch ) 
 
 * Port to and push executables for all major OS.
@@ -137,12 +141,12 @@ But for now it stays, enjoy a smooth testing experiance.
 
 
 Request account or give us feedback
-Contact us @ resplus-multitool@gmail.com
+Contact us @ resplus@multitool.se
 
 If you want access to the rest of the multi tool collection contact @
-apexmultitool@gmail.com and tell us about your self.
+apexmultitool@multitool.se and tell us about your self.
 Adding users to our MCP MultiTool server for testing,
-all the hacking tools you will ever need and a privacy first uncensored forum for all registerd users.
+all the AI hacking tools you will ever need and a privacy first uncensored forum for all registerd users.
 
 
 Tools Included so far ...
@@ -151,9 +155,11 @@ Matkollen.MultiTool.V1.0.0-BETA
 
 Multi.Gambling.bot.twitch
 
-Swish.MultiTool.V2.0.1-Android
+Fake.Swish.MultiTool.V2.0.1-Android
 
 NFC.Relay.MultiTool.V1.0.3
+
+Freja.ID.mULTItOOL.v0.0.2-Alpha
 
 
 Updating weekly so stay tuned for updates in the Tool Forum!

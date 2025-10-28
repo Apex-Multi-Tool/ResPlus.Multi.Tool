@@ -1,0 +1,175 @@
+ResPlus Dunder - Backend API-specifikation
+
+API-endpoints för resplus multi tool api.
+Bas-URL: http://resplus.plus.se:3000/api
+Autentisering
+all protected routes must include Authorization-header with a valid JWT-token:
+Authorization: Bearer <DITT_TOKEN>
+
+1. Autentisering
+POST /api/auth/login
+Loggar in en användare.
+* Autentisering: Ingen
+* Request Body (JSON):
+{
+ "email": "användarens@email.com",
+ "password": "användarensLösenord"
+}
+
+* Logik:
+   1. Check if Test or Admin account === '' === ''.
+   2. If not, check stripe User database.
+   3. If user match, Check password against user metadata with Multi-Bot app_password.
+   * Success Response (200):
+{
+ "message": "Login successful",
+ "token": "en...lång...jwt...sträng"
+}
+
+   * Error Response (401/404/500):
+{
+ "message": "Invalid credentials"
+}
+
+2. Rese-API:er (Proxy)
+This routes is proxy to Trafiklabs API:er och need auth.
+GET /api/proxy/location
+Fetch suggesten for Stops/Stations (autocomplete).
+      * Autentisering: Bearer Token
+      * URL-parametrar:
+      * query (obligatorisk): Söksträngen, t.ex. "Stockh"
+      * Exempel-URL: .../api/proxy/location?query=Stockholm C
+      * Success Response (200):
+{
+ "stopLocationOrCoordLocation": [
+   {
+     "name": "Stockholm C",
+     "extId": "7400001",
+     "mainMastExtId": "300107400"
+   },
+   {
+     "name": "Stockholms södra",
+     "extId": "7400003"
+   }
+ ]
+}
+
+      * Error Response (401/500):
+{
+ "message": "Failed to fetch location data"
+}
+
+GET /api/proxy/trip
+Stop to Stop search.
+         * Autentisering: Bearer Token
+         * URL-parametrar:
+         * fromId (obligatorisk): extId eller mainMastExtId från /location (start).
+         * toId (obligatorisk): extId eller mainMastExtId från /location (slut).
+         * date (valfri): Datum (YYYY-MM-DD). Standard är idag.
+         * time (valfri): Tid (HH:MM). Standard är nu.
+         * Exempel-URL: .../api/proxy/trip?fromId=7400001&toId=7400010&date=2025-10-28&time=11:00
+         * Success Response (200):
+{
+ "Trip": [
+   {
+     "duration": "PT3H5M",
+     "ctxRecon": "...",
+     "LegList": {
+       "Leg": [
+         {
+           "Origin": { "name": "Stockholm C", "time": "11:05:00", ... },
+           "Destination": { "name": "Göteborg C", "time": "14:10:00", ... },
+           "Product": { "catOut": "TÅG" },
+           "journeyDetailRef": { "ref": "..." }
+         }
+       ]
+     }
+   }
+ ]
+}
+
+         * Error Response (401/500):
+{
+ "message": "Failed to fetch trip data"
+}
+
+GET /api/proxy/journey-detail
+Fetch detailed realtime data for a specifik Trip (stop, Track, Delays).
+            * Autentisering: Bearer Token
+            * URL-parametrar:
+            * ref (obligatorisk): journeyDetailRef.ref som fås från /trip.
+            * Exempel-URL: .../api/proxy/journey-detail?ref=...
+            * Success Response (200):
+{
+ "JourneyDetail": {
+   "Stop": [
+     {
+       "name": "Stockholm C",
+       "depTime": "11:05:00",
+       "rtDepTime": "11:08:00",
+       "track": "15"
+     },
+     {
+       "name": "Göteborg C",
+       "arrTime": "14:10:00",
+       "track": "8"
+     }
+   ]
+ },
+ "tripId": "tåg-12345", // Uppstädat TripId för nästa anrop
+ "stopsGeo": [ // Geodata för alla stopp
+   { "name": "Stockholm C", "lat": 59.330, "lon": 18.060 },
+   { "name": "Göteborg C", "lat": 57.708, "lon": 11.970 }
+ ]
+}
+
+            * Error Response (401/500):
+{
+ "message": "Failed to fetch journey details"
+}
+
+GET /api/proxy/vehicle-position/:tripId
+Fetch precise live-position GPS (longitude latitude coordinates) for a specific Vehicle position.
+               * Autentisering: Bearer Token
+               * URL-parametrar:
+               * tripId (obligatorisk): Det tripId som returnerades från /journey-detail.
+               * Exempel-URL: .../api/proxy/vehicle-position/tåg-12345
+               * Success Response (200):
+{
+ "position": {
+   "latitude": 58.410,
+   "longitude": 15.621
+ }
+}
+
+               * Error Response (404/500):
+{
+ "message": "Vehicle position not found for tripId: ..."
+}
+
+3. Boknings-API
+POST /api/booking/book
+Create PDF-Ticket and mail it to the user.
+                  * Autentisering: Bearer Token
+                  * Request Body (JSON):
+{
+ "name": "Kalle Anka",
+ "email": "kalle@exempel.se",
+ "phone": "0701234567",
+ "trip": { ... } // Hela trip-objektet från /trip
+}
+
+                  * Logistik:
+                     1. Collects tripdata and user information .
+                     2. Generate QR-code.
+                     3. Makes multi page Ticket if needed
+                     4. Uses nodemailer to mail the PDF-Ticket as a attachment to users mail
+                     * Success Response (200):
+{
+ "message": "Booking successful, email sent to kalle@exempel.se"
+}
+
+                     * Error Response (400/500):
+{
+ "message": "Failed to create or send booking"
+}

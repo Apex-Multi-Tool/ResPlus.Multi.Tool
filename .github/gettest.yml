@@ -1,0 +1,27 @@
+name: Test GET
+on: push
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    steps:
+      - name: Get the sources
+        uses: actions/checkout@v3
+      - name: Execute a dummy query
+        id: query
+        uses: ./
+        with:
+          url: 'https://jsonplaceholder.typicode.com/todos?id=1'
+      - name: Print the response status
+        run: echo ${{ steps.query.outputs.status }}
+        shell: bash
+      - name: Print the response headers
+        run: echo ${{ steps.query.outputs.headers }}
+        shell: bash
+      - name: Print the response payload
+        run: echo ${{ steps.query.outputs.response }}
+        shell: bash
